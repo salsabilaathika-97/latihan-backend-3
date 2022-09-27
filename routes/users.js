@@ -32,4 +32,14 @@ router.delete('/:id', (req, res) => {
     res.send(user)
 })
 
+router.put('/:id', (req, res) => {
+    const dataParam = req.params;
+    const newName = req.body.name;
+    const newUser = data.map(item => {
+        return item.id == dataParam.id ? {...item, name: newName} : item
+    })
+
+    res.send(newUser);
+})
+
 module.exports = router;
