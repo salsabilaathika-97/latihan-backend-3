@@ -26,4 +26,10 @@ router.get('/:id', (req,res) => {
     res.send(user)
 })
 
+router.delete('/:id', (req, res) => {
+    const dataParam = req.params;
+    const user = data.filter(item => item.id != dataParam.id);
+    res.send(user)
+})
+
 module.exports = router;
