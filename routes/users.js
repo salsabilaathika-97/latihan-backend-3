@@ -15,7 +15,9 @@ router.get('/', (req,res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req.body);
+    const payload = req.body;
+    data.push(payload);
+    res.send("Data berhasil ditambahkan")
 })
 
 module.exports = router;
