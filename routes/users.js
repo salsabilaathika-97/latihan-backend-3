@@ -2,44 +2,17 @@ const express = require("express");
 
 const router = express();
 
-const data = [
-    {
-        id: 1,
-        name: "Rahmat",
-        role: "user"
-    }
-]
+const {db} = require('../config/dbConfig');
 
-router.get('/', (req,res) => {
-    res.send(data)
-})
-
-router.post('/', (req, res) => {
-    const payload = req.body;
-    data.push(payload);
-    res.send("Data berhasil ditambahkan")
-})
-
-router.get('/:id', (req,res) => {
-    const dataParam = req.params;
-    const user = data.find(item => item.id = dataParam.id);
-    res.send(user)
-})
-
-router.delete('/:id', (req, res) => {
-    const dataParam = req.params;
-    const user = data.filter(item => item.id != dataParam.id);
-    res.send(user)
-})
-
-router.put('/:id', (req, res) => {
-    const dataParam = req.params;
-    const newName = req.body.name;
-    const newUser = data.map(item => {
-        return item.id == dataParam.id ? {...item, name: newName} : item
-    })
-
-    res.send(newUser);
-})
+router.get('/', (req, res) => {
+    const sqlQuery = "SELECT * FROM user"
+    db.query(sqlQuery, (err, result) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(result)
+        }
+    });
+});
 
 module.exports = router;
