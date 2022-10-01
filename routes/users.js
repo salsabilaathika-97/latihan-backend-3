@@ -41,4 +41,18 @@ router.post("/", (req, res) => {
     })
 })
 
+router.put("/:id", (req, res) => {
+    const dataBody = req.body;
+    const dataParam = req.params;
+    const sqlQuery = `UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = ${dataParam.id}`;
+
+    db.query(sqlQuery, [dataBody.user_name, dataBody.user_email, dataBody.user_password], (err, result) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+})
+
 module.exports = router;
