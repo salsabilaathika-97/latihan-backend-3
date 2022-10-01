@@ -1,3 +1,4 @@
+const e = require("express");
 const express = require("express");
 
 const router = express();
@@ -48,6 +49,19 @@ router.put("/:id", (req, res) => {
 
     db.query(sqlQuery, [dataBody.user_name, dataBody.user_email, dataBody.user_password], (err, result) => {
         if(err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+})
+
+router.delete("/:email", (req,res) => {
+    const dataParam = req.params;
+    const sqlQuery = `DELETE FROM user WHERE user_email = ?`
+
+    db.query(sqlQuery, [dataParam.email], (err, result) => {
+        if(err){
             console.log(err);
         } else {
             res.send(result);
