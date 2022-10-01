@@ -27,4 +27,18 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+    const dataBody = req.body;
+
+    const sqlQuery = `INSERT INTO user(user_name, user_email, user_password) VALUE(?,?,?);`;
+    
+    db.query(sqlQuery, [dataBody.user_name, dataBody.user_email, dataBody.user_password], (err, result) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(result)
+        }
+    })
+})
+
 module.exports = router;
